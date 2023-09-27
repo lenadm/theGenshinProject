@@ -1,0 +1,36 @@
+body {
+  background-color: #2b2b2b;
+  color: #fff;
+  font-size: 14px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+.input-bar {
+  display: grid;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.bar {
+  background-color: #000;
+  border: 0;
+  color: #fff;
+  width: 40vw;
+  height: 40px;
+  overflow: hidden;
+}
+
+.bar:focus {
+  outline: none;
+}
+
+.object-list {
+  display: none;
+  margin: -1px 0 0 0;
+  height: 200px;
+  background-color: #000;
+}
+
