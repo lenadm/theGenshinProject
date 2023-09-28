@@ -1,0 +1,14 @@
+{
+  "name": "thegenshinproject",
+  "version": "0.0.1",
+  "description": "an app to help you plan your play sessions in genshin impact",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "genshin"
+  ],
+  "author": "lenadm",
+  "license": "GPL-3.0-or-later"
+}

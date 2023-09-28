@@ -1,4 +1,4 @@
-const activites = [
+let activities = [
     "Dvalin",
     "Boreas",
     "Childe",
@@ -17,3 +17,31 @@ const activites = [
     "spiral abyss",
     "friendship farming"
 ]
+
+const objectList = document.querySelector(".object-list");
+const inputBox = document.getElementById("input-bar");
+
+inputBox.onkeyup = function() {
+    let result = [];
+    let input = inputBox.value;
+    if(input.length) {
+        result = activities.filter((keyword)=> {
+            return keyword.toLowerCase().includes(input.toLowerCase());
+        });
+    }
+    display(result);
+    if(!result.length){
+        objectList.innerHTML = ''
+    }
+}
+
+function display(result){
+    const content = result.map((list)=> {
+        return "<li onclick=selectInput(this)>" + list + "</li>"
+    });
+    objectList.innerHTML = "<ul>" + content.join('') + "</ul>"
+}
+
+function selectInput(list){
+    inputBox.value = list.innerHTML
+} 
