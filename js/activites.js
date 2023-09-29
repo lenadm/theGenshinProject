@@ -45,3 +45,30 @@ function display(result){
 function selectInput(list){
     inputBox.value = list.innerHTML
 } 
+
+function submitViaEnter(event) {
+    let keyCode = event.keyCode;
+    const enterKey = "13"
+    if(keyCode == enterKey) {
+        submitTask()
+    }
+}
+
+document.addEventListener('keyup', (event) => {
+    submitViaEnter(event)
+});
+
+function submitTask() {
+    let input = inputBox.value;
+    let result = [];
+
+    if(input.length) {
+        result = activities.filter((keyword)=> {
+            return keyword.toLowerCase().includes(input.toLowerCase())
+        });
+        if(result.length != 1)
+            return
+        console.log(result)
+    }
+}
+
