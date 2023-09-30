@@ -22,16 +22,22 @@ const objectList = document.querySelector(".object-list");
 const inputBox = document.getElementById("input-bar");
 
 inputBox.onkeyup = function() {
-    let result = [];
-    let input = inputBox.value;
-    if(input.length) {
-        result = activities.filter((keyword)=> {
-            return keyword.toLowerCase().includes(input.toLowerCase());
-        });
-    }
+    const result = keyWordFilter()
     display(result);
     if(!result.length){
         objectList.innerHTML = ''
+    }
+}
+
+function keyWordFilter() {
+    let input = inputBox.value;
+    let result = [];
+
+    if(input.length) {
+        result = activities.filter((keyword)=> {
+            return keyword.toLowerCase().includes(input.toLowerCase())
+        });
+        return result
     }
 }
 
@@ -59,16 +65,26 @@ document.addEventListener('keyup', (event) => {
 });
 
 function submitTask() {
-    let input = inputBox.value;
-    let result = [];
-
-    if(input.length) {
-        result = activities.filter((keyword)=> {
-            return keyword.toLowerCase().includes(input.toLowerCase())
-        });
-        if(result.length != 1)
-            return
-        console.log(result)
+    const result = keyWordFilter()
+    if(result.length != 1)
+        return
+    else {
+        submitMode()
     }
 }
 
+function submitMode() {
+    const daysOfWeek = document.getElementsByClassName("day")
+
+    for (i = 0; i < daysOfWeek.length; i++) {
+        const currentDay = daysOfWeek[i]
+        const currentI = i
+        currentDay.style.border = "2px solid #32cd32"
+        currentDay.style.cursor = "pointer"
+        currentDay.onclick = function() {submitText(currentI)}
+    }
+}
+
+function submitText(dayNumber) {
+
+}
