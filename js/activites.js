@@ -1,90 +1,111 @@
 let activities = [
-    "Dvalin",
-    "Boreas",
-    "Childe",
-    "Azhdaha",
-    "La Signora",
-    "Raiden Shogun",
-    "Balladeer",
-    "Apep",
-    "parametric transformer",
-    "main quest",
-    "dailies",
-    "exploring",
-    "talent books",
-    "weapon materials",
-    "regular bosses",
-    "spiral abyss",
-    "friendship farming"
+    'Dvalin',
+    'Boreas',
+    'Childe',
+    'Azhdaha',
+    'La Signora',
+    'Raiden Shogun',
+    'Balladeer',
+    'Apep',
+    'parametric transformer',
+    'main quest',
+    'dailies',
+    'exploring',
+    'talent books',
+    'weapon materials',
+    'regular bosses',
+    'spiral abyss',
+    'friendship farming'
 ]
 
-const objectList = document.querySelector(".object-list");
-const inputBox = document.getElementById("input-bar");
+const objectList = document.querySelector('.object-list');
+const inputBox = document.getElementById('input-bar');
 
-inputBox.onkeyup = function() {
-    const result = keyWordFilter()
-    display(result);
-    if(!result.length){
-        objectList.innerHTML = ''
+function main() {
+    document.addEventListener('keyup', (event) => {
+        submitViaEnter(event);
+        updateAutoComplete();
+    });
+}
+
+function submitViaEnter(event) {
+    const keyCode = event.keyCode;
+    const enterKey = '13';
+    if (keyCode == enterKey) {
+        submitTask();
     }
 }
 
-function keyWordFilter() {
+function submitTask() {
+    const result = filterKeyWords();
+    if (result.length != 1) {
+        return;
+    }
+
+    enterSubmitMode(result);
+}
+
+
+function updateAutoComplete() {
+    const result = filterKeyWords();
+    display(result);
+    if (!result.length) {
+        objectList.innerHTML = '';
+    }
+}
+
+function filterKeyWords() {
     let input = inputBox.value;
     let result = [];
 
-    if(input.length) {
+    if (input.length) {
         result = activities.filter((keyword)=> {
             return keyword.toLowerCase().includes(input.toLowerCase())
         });
-        return result
+        return result;
     }
 }
 
-function display(result){
+function display(result) {
     const content = result.map((list)=> {
-        return "<li onclick=selectInput(this)>" + list + "</li>"
+        return '<li onclick=selectInput(this)>' + list + '</li>'
     });
-    objectList.innerHTML = "<ul>" + content.join('') + "</ul>"
+    objectList.innerHTML = '<ul>' + content.join('') + '</ul>';
 }
 
 function selectInput(list){
-    inputBox.value = list.innerHTML
+    inputBox.value = list.innerHTML;
 } 
 
-function submitViaEnter(event) {
-    let keyCode = event.keyCode;
-    const enterKey = "13"
-    if(keyCode == enterKey) {
-        submitTask()
+function enterSubmitMode(validActivity) {
+    const daysOfWeek = document.getElementsByClassName('day');
+
+    for (let i = 0; i < daysOfWeek.length; i++) {
+        const currentDay = daysOfWeek[i];
+        const currentI = i;
+        currentDay.style.border = '2px solid #32cd32';
+        currentDay.style.cursor = 'pointer';
+        currentDay.onclick = function() {submitText(currentI, validActivity)};
     }
 }
 
-document.addEventListener('keyup', (event) => {
-    submitViaEnter(event)
-});
+function submitText(dayNumber, validActivity) {
+    const content = '<li>' + validActivity + '</li>' ;
+    const dayOfWeek = document.getElementById('day' + dayNumber);
 
-function submitTask() {
-    const result = keyWordFilter()
-    if(result.length != 1)
-        return
-    else {
-        submitMode()
+    dayOfWeek.innerHTML = '<ul>' + content + '</ul>';
+    exitSubmitMode()
+}
+
+function exitSubmitMode() {
+    const daysOfWeek = document.getElementsByClassName('day');
+
+    for (let i = 0; i < daysOfWeek.length; i++) {
+        const currentDay = daysOfWeek[i];
+        currentDay.style.removeProperty('border');
+        currentDay.style.removeProperty('cursor');
+        currentDay.onclick = null;
     }
 }
 
-function submitMode() {
-    const daysOfWeek = document.getElementsByClassName("day")
-
-    for (i = 0; i < daysOfWeek.length; i++) {
-        const currentDay = daysOfWeek[i]
-        const currentI = i
-        currentDay.style.border = "2px solid #32cd32"
-        currentDay.style.cursor = "pointer"
-        currentDay.onclick = function() {submitText(currentI)}
-    }
-}
-
-function submitText(dayNumber) {
-
-}
+main();

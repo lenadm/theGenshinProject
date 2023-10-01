@@ -38,7 +38,7 @@ body {
   overflow-y: scroll;
 }
 
-ul {
+.object-list ul {
   width: 38vw;
   padding: 30px;
   background-color: var(--foreground-color);
@@ -54,7 +54,7 @@ ul {
   cursor: pointer;
 }
 
-li:hover {
+.object-list li:hover {
   background-color: var(--hover-color);
 }
 
