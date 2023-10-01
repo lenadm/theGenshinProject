@@ -36,6 +36,14 @@ function submitViaEnter(event) {
     }
 }
 
+function updateAutoComplete() {
+    const result = filterKeyWords();
+    displayAutoComplete(result);
+    if (!result.length) {
+        objectList.innerHTML = '';
+    }
+}
+
 function submitTask() {
     const result = filterKeyWords();
     if (result.length != 1) {
@@ -43,15 +51,6 @@ function submitTask() {
     }
 
     enterSubmitMode(result);
-}
-
-
-function updateAutoComplete() {
-    const result = filterKeyWords();
-    display(result);
-    if (!result.length) {
-        objectList.innerHTML = '';
-    }
 }
 
 function filterKeyWords() {
@@ -66,7 +65,7 @@ function filterKeyWords() {
     }
 }
 
-function display(result) {
+function displayAutoComplete(result) {
     const content = result.map((list)=> {
         return '<li onclick=selectInput(this)>' + list + '</li>'
     });
@@ -85,11 +84,11 @@ function enterSubmitMode(validActivity) {
         const currentI = i;
         currentDay.style.border = '2px solid #32cd32';
         currentDay.style.cursor = 'pointer';
-        currentDay.onclick = function() {submitText(currentI, validActivity)};
+        currentDay.onclick = function() {displayTask(currentI, validActivity)};
     }
 }
 
-function submitText(dayNumber, validActivity) {
+function displayTask(dayNumber, validActivity) {
     const content = '<li>' + validActivity + '</li>' ;
     const dayOfWeek = document.getElementById('day' + dayNumber);
 
